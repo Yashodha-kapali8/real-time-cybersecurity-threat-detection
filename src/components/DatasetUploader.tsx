@@ -16,7 +16,7 @@ interface DatasetStats {
   attackTypes: Record<string, number>;
 }
 
-const DatasetUploader = ({ onTrainingComplete }: { onTrainingComplete?: (metrics: any) => void }) => {
+const DatasetUploader = ({ onTrainingComplete }: { onTrainingComplete?: (metrics: Record<string, unknown>) => void }) => {
   const { toast } = useToast();
   const [trainFile, setTrainFile] = useState<File | null>(null);
   const [testFile, setTestFile] = useState<File | null>(null);
@@ -24,7 +24,7 @@ const DatasetUploader = ({ onTrainingComplete }: { onTrainingComplete?: (metrics
   const [isTraining, setIsTraining] = useState(false);
   const [trainingProgress, setTrainingProgress] = useState(0);
   const [datasetStats, setDatasetStats] = useState<DatasetStats | null>(null);
-  const [modelMetrics, setModelMetrics] = useState<any>(null);
+  const [modelMetrics, setModelMetrics] = useState<Record<string, unknown> | null>(null);
   
   const trainFileRef = useRef<HTMLInputElement>(null);
   const testFileRef = useRef<HTMLInputElement>(null);

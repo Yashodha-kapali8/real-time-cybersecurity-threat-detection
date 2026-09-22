@@ -5,7 +5,8 @@ const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
 };
 
 interface ThreatAlertRequest {
@@ -18,6 +19,18 @@ interface ThreatAlertRequest {
   description: string;
   confidenceScore: number;
 }
+
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  if (typeof error === "string") {
+    return error;
+  }
+
+  return "An unexpected error occurred while sending the threat alert.";
+};
 
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
@@ -33,11 +46,17 @@ const handler = async (req: Request): Promise<Response> => {
       destinationIp,
       timestamp,
       description,
-      confidenceScore
+      confidenceScore,
     }: ThreatAlertRequest = await req.json();
 
-    const severityColor = severity === 'Critical' ? '#ef4444' : severity === 'High' ? '#f97316' : '#eab308';
-    const severityIcon = severity === 'Critical' ? '🚨' : '⚠️';
+    const severityColor =
+      severity === "Critical"
+        ? "#ef4444"
+        : severity === "High"
+          ? "#f97316"
+          : "#eab308";
+
+    const severityIcon = severity === "Critical" ? "🚨" : "⚠️";
 
     const emailResponse = await resend.emails.send({
       from: "CyberDefense Pro <alerts@resend.dev>",
@@ -130,16 +149,25 @@ const handler = async (req: Request): Promise<Response> => {
 
     return new Response(JSON.stringify({ success: true, emailResponse }), {
       status: 200,
-      headers: { "Content-Type": "application/json", ...corsHeaders },
+      headers: {
+        "Content-Type": "application/json",
+        ...corsHeaders,
+      },
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = getErrorMessage(error);
+
     console.error("Error sending threat alert:", error);
+
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: errorMessage }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
+      },
     );
   }
 };

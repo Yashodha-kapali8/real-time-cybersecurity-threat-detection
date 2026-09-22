@@ -1,8 +1,14 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -68,18 +74,18 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-cyber': 'var(--gradient-cyber)',
-        'gradient-threat': 'var(--gradient-threat)',
-        'gradient-safe': 'var(--gradient-safe)',
+        "gradient-cyber": "var(--gradient-cyber)",
+        "gradient-threat": "var(--gradient-threat)",
+        "gradient-safe": "var(--gradient-safe)",
       },
       boxShadow: {
-        'glow-primary': 'var(--glow-primary)',
-        'glow-threat': 'var(--glow-threat)',
-        'glow-success': 'var(--glow-success)',
+        "glow-primary": "var(--glow-primary)",
+        "glow-threat": "var(--glow-threat)",
+        "glow-success": "var(--glow-success)",
       },
       transitionTimingFunction: {
-        'smooth': 'var(--transition-smooth)',
-        'bounce': 'var(--transition-bounce)',
+        smooth: "var(--transition-smooth)",
+        bounce: "var(--transition-bounce)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -110,5 +116,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

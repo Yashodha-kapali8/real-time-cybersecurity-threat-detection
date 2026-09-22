@@ -32,8 +32,8 @@ const EnhancedDashboard = () => {
   });
 
   // Real-time chart data
-  const [chartData, setChartData] = useState<any[]>([]);
-  const [threatTrendData, setThreatTrendData] = useState<any[]>([]);
+  const [chartData, setChartData] = useState<Record<string, unknown>[]>([]);
+  const [threatTrendData, setThreatTrendData] = useState<Record<string, unknown>[]>([]);
   const [protocolData, setProtocolData] = useState([
     { name: 'TCP', value: 45, color: '#00d4ff' },
     { name: 'UDP', value: 25, color: '#ff6b6b' },
