@@ -4,6 +4,14 @@ A full-stack cybersecurity monitoring and threat detection application that comb
 
 The project demonstrates how machine learning can be integrated into a modern cybersecurity monitoring workflow to identify and analyze potentially malicious network activity.
 
+![React](https://img.shields.io/badge/React-TypeScript-blue)
+![Vite](https://img.shields.io/badge/Vite-Frontend-purple)
+![Supabase](https://img.shields.io/badge/Supabase-Authentication-green)
+![XGBoost](https://img.shields.io/badge/ML-XGBoost-orange)
+![ESLint](https://img.shields.io/badge/Code%20Quality-ESLint-4B32C3)
+
+---
+
 ## Overview
 
 Real-Time Cybersecurity Threat Detection provides a web-based security dashboard for monitoring network activity and identifying potential cyber threats.
@@ -22,7 +30,9 @@ The application combines:
 - Model performance monitoring
 - CSV data export
 
-The goal is to provide a practical demonstration of an ML-assisted Security Operations Center (SOC) style monitoring interface.
+The goal is to provide a practical demonstration of an ML-assisted Security Operations Center (SOC)-style monitoring interface.
+
+---
 
 ## Key Features
 
@@ -41,6 +51,8 @@ Current model metrics:
 
 > These metrics are based on the currently bundled model and should not be interpreted as production-grade security performance.
 
+---
+
 ### Real-Time Network Monitoring
 
 Monitor simulated or application-generated network traffic and observe security-related events through the dashboard.
@@ -53,6 +65,8 @@ Features include:
 - Threat activity monitoring
 - Real-time dashboard updates
 - Monitoring controls
+
+---
 
 ### Machine Learning
 
@@ -68,10 +82,14 @@ Model-related functionality includes:
 - Model metadata
 - Attack-pattern analysis
 
-The application includes the model artifacts required by the frontend under:
+The application includes the required model artifacts under:
 
 ```text
 public/models/
+├── label_encoders.pkl
+├── model_metadata.json
+├── scaler.pkl
+└── xgboost_threat_model.pkl
 
 ### NSL-KDD Dataset Processing
 
