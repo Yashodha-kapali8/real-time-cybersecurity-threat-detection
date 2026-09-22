@@ -91,6 +91,8 @@ public/models/
 ├── scaler.pkl
 └── xgboost_threat_model.pkl
 
+---
+
 ### NSL-KDD Dataset Processing
 
 The project includes functionality for working with the NSL-KDD intrusion-detection dataset.
