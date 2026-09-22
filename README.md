@@ -1,154 +1,460 @@
+# Real-Time Cybersecurity Threat Detection
 
+A full-stack cybersecurity monitoring and threat detection application that combines real-time network monitoring, machine-learning-based threat classification, security event visualization, and Supabase authentication into a single web dashboard.
 
-This file explains, in very simple words, what this project does, the technologies used, how the pieces fit together, and step-by-step instructions to run and train the model. Follow the steps one by one.
+The project demonstrates how machine learning can be integrated into a modern cybersecurity monitoring workflow to identify and analyze potentially malicious network activity.
 
----
+## Overview
 
-## 1) What this project does (one sentence)
+Real-Time Cybersecurity Threat Detection provides a web-based security dashboard for monitoring network activity and identifying potential cyber threats.
 
-It captures or simulates network traffic, runs a machine learning model to detect if traffic looks like an attack, logs threats, and provides a web UI to inject test traffic and analyze CSV datasets.
+The application combines:
 
-## 2) Tech stack (short & simple)
+- Real-time network traffic monitoring
+- Machine-learning-based threat detection
+- XGBoost classification
+- NSL-KDD dataset processing
+- Threat injection and testing
+- Security log exploration
+- Network packet analysis
+- Interactive dashboards and charts
+- Supabase authentication
+- Model performance monitoring
+- CSV data export
 
-- Frontend: React + TypeScript, Vite as the dev server and build tool.
-- UI: Tailwind and shadcn/ui components (prebuilt React UI primitives).
-- Backend services (in project): small TypeScript services to integrate with Supabase, a simulated packet capture service, and client-side logic to call the trained model metadata.
-- Machine learning: Python + XGBoost. Training and preprocessing scripts are in `training.py`.
-- Storage for model artifacts: saved into `public/models/` for the web app to load.
-- Database (optional): Supabase integration is wired in to save detected threats.
+The goal is to provide a practical demonstration of an ML-assisted Security Operations Center (SOC) style monitoring interface.
 
-## 3) High-level architecture (easy)
+## Key Features
 
-1. The Python training script (`training.py`) trains an XGBoost model using NSL-KDD data (CSV files in `data/`). It produces:
-   - `xgboost_threat_model.pkl` (model)
-   - `scaler.pkl` (feature scaler)
-   - `label_encoders.pkl` (encoders for categorical columns)
-   - `model_metadata.json` (accuracy, precision, etc.)
+### Threat Detection
 
-2. The frontend React app (src/) can:
-   - Load `model_metadata.json` from `public/models/` to know the model exists.
-   - Use a light-weight JS rule-based prediction (via service) or display model metadata.
-   - Let you upload KDD CSVs and analyze rows in the UI (we parse and map labels to attack types).
+The application uses an XGBoost machine-learning model to classify network activity and identify potential threats.
 
-3. When a threat is detected in the UI it can be stored using Supabase functions (if configured) and optionally send email alerts.
+Current model metrics:
 
-## 4) Important files and folders (where to look)
+| Metric | Result |
+|---|---:|
+| Accuracy | 80.57% |
+| Precision | 96.85% |
+| Recall | 68.08% |
+| F1 Score | 79.96% |
 
-- `src/` — React app source code.
-  - `src/components/ThreatInjection.tsx` — UI to inject a packet or upload KDD CSV and analyze.
-  - `src/services/xgboostModelLoader.ts` — front-end loader that reads `public/models/model_metadata.json`.
-  - `src/services/packetCapture.ts` — simulated packet capture / detection service used by UI.
-- `training.py` — Python script to train the model. It expects CSV files in `data/`.
-- `data/` — contains `KDDtrain.csv`, `KDDtest.csv`, and cleaned variants.
-- `public/models/` — where the trained artifacts must live for the frontend to load them.
+> These metrics are based on the currently bundled model and should not be interpreted as production-grade security performance.
 
-## 5) Quick setup and run (step-by-step)
+### Real-Time Network Monitoring
 
-Prerequisites:
-- Node.js and npm installed (for the frontend)
-- Python 3.8+ with pip (for training)
+Monitor simulated or application-generated network traffic and observe security-related events through the dashboard.
 
-Steps to run the dev UI:
+Features include:
 
-1. Install JS dependencies:
+- Network traffic visualization
+- Packet monitoring
+- Throughput information
+- Threat activity monitoring
+- Real-time dashboard updates
+- Monitoring controls
 
-```powershell
-cd "E:/network-watchdog-ai-main (1)/network-watchdog-ai-main"
+### Machine Learning
+
+The project integrates an XGBoost threat classification model with the frontend application.
+
+Model-related functionality includes:
+
+- Model loading
+- Feature preprocessing
+- Feature scaling
+- Threat prediction
+- Prediction confidence
+- Model metadata
+- Attack-pattern analysis
+
+The application includes the model artifacts required by the frontend under:
+
+```text
+public/models/
+
+### NSL-KDD Dataset Processing
+
+The project includes functionality for working with the NSL-KDD intrusion-detection dataset.
+
+The processing workflow is:
+
+CSV Dataset
+    ↓
+Data Parsing
+    ↓
+Feature Processing
+    ↓
+Encoding / Scaling
+    ↓
+Model Input
+    ↓
+Threat Classification
+    ↓
+Dashboard Visualization
+
+Large raw dataset files are intentionally excluded from GitHub through .gitignore.
+
+### Packet Analysis
+
+The packet analysis interface provides a way to inspect network packet information and analyze suspicious activity.
+
+The application can display information such as:
+
+Source IP
+Destination IP
+Protocol
+Ports
+Packet characteristics
+Threat classification
+Confidence information
+
+### Security Dashboard
+
+The dashboard provides an interactive view of security activity.
+
+It includes visualizations for:
+
+Network traffic
+Threat distribution
+Threat trends
+Model metrics
+Security events
+Monitoring statistics
+
+### Logs Explorer
+
+The Logs Explorer provides an interface for reviewing security-related events and threat logs.
+
+It supports:
+
+Log browsing
+Threat details
+Event information
+Security event analysis
+
+### Threat Injection
+
+A dedicated threat-injection interface is included for testing the detection workflow.
+
+This allows simulated threat data to be introduced into the application so that the monitoring and classification workflow can be demonstrated without relying entirely on live network traffic.
+
+### Authentication
+
+User authentication is implemented using Supabase.
+
+The application supports:
+
+User registration
+Email confirmation
+Login
+Session persistence
+Logout
+Protected application access
+
+Supabase credentials are loaded through environment variables and are not committed to the repository.
+
+## Technology Stack
+
+Frontend
+React
+TypeScript
+Vite
+React Router
+Tailwind CSS
+shadcn/ui
+Radix UI
+Recharts
+
+### Machine Learning
+XGBoost
+NSL-KDD dataset
+Feature encoding
+Feature scaling
+Model serialization
+
+### Backend and Services
+Supabase
+Supabase Authentication
+Supabase Edge Functions
+
+### Development Tools
+Node.js
+npm
+ESLint
+Git
+GitHub
+
+## Architecture
+
+High-level application architecture:
+
+                    ┌──────────────────────┐
+                    │      React App       │
+                    │   TypeScript + Vite  │
+                    └──────────┬───────────┘
+                               │
+             ┌─────────────────┼─────────────────┐
+             │                 │                 │
+             ▼                 ▼                 ▼
+      ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+      │  Dashboard  │   │   Network   │   │    Logs     │
+      │             │   │  Monitoring │   │   Explorer   │
+      └─────────────┘   └──────┬──────┘   └─────────────┘
+                               │
+                               ▼
+                     ┌──────────────────┐
+                     │ ML Threat Model  │
+                     │     XGBoost      │
+                     └────────┬─────────┘
+                              │
+                              ▼
+                     ┌──────────────────┐
+                     │ Threat Prediction│
+                     │ + Confidence     │
+                     └────────┬─────────┘
+                              │
+                              ▼
+                     ┌──────────────────┐
+                     │ Security Events  │
+                     │ & Visualization  │
+                     └──────────────────┘
+
+                       ┌───────────────┐
+                       │   Supabase    │
+                       │ Authentication│
+                       └───────────────┘
+## Project Structure
+real-time-cybersecurity-threat-detection/
+│
+├── public/
+│   └── models/
+│       ├── label_encoders.pkl
+│       ├── model_metadata.json
+│       ├── scaler.pkl
+│       └── xgboost_threat_model.pkl
+│
+├── src/
+│   ├── components/
+│   │   ├── Dashboard.tsx
+│   │   ├── EnhancedDashboard.tsx
+│   │   ├── NetworkMonitor.tsx
+│   │   ├── PacketAnalyzer.tsx
+│   │   ├── RealTimeMonitor.tsx
+│   │   ├── ThreatDetection.tsx
+│   │   ├── ThreatInjection.tsx
+│   │   ├── LogsExplorer.tsx
+│   │   └── ...
+│   │
+│   ├── contexts/
+│   │   ├── AuthContext.tsx
+│   │   └── MonitoringContext.tsx
+│   │
+│   ├── hooks/
+│   │   └── useSound.ts
+│   │
+│   ├── integrations/
+│   │   └── supabase/
+│   │
+│   ├── pages/
+│   │   └── Auth.tsx
+│   │
+│   ├── services/
+│   │   ├── mlService.ts
+│   │   ├── newPacketCapture.ts
+│   │   ├── nslKddProcessor.ts
+│   │   ├── packetCapture.ts
+│   │   └── xgboostModelLoader.ts
+│   │
+│   └── utils/
+│       └── export.ts
+│
+├── supabase/
+│   └── functions/
+│       └── send-threat-alert/
+│
+├── data/
+│   └── ...
+│
+├── .env.example
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── tailwind.config.ts
+├── vite.config.ts
+└── README.md
+
+## Getting Started
+Prerequisites
+
+Make sure you have the following installed:
+
+Node.js 18 or later
+npm
+Git
+
+Check your versions:
+
+node --version
+npm --version
+git --version
+
+### Installation
+
+Clone the repository:
+
+git clone https://github.com/Yashodha-kapali8/real-time-cybersecurity-threat-detection.git
+
+Navigate into the project:
+
+cd real-time-cybersecurity-threat-detection
+
+Install dependencies:
+
 npm install
-```
 
-2. Start the dev server (Vite):
+### Environment Variables
 
-```powershell
+Create a local environment file:
+
+.env
+
+Use .env.example as the template.
+
+Example:
+
+VITE_SUPABASE_PROJECT_ID=your_project_id
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+Important
+
+Never commit .env to GitHub.
+
+The project is configured to ignore environment files containing local credentials.
+
+### Run the Application
+
+Start the development server:
+
 npm run dev
-# open http://localhost:8081/ (Vite may pick 8081 if 8080 is busy)
-```
 
-3. Open the app in your browser and go to the Threat Injection page.
+Vite will display the local URL in the terminal, typically:
 
-Steps to train the model (Python):
+http://localhost:8080
 
-1. Install Python packages (run in a Python environment):
+If that port is already in use, Vite will automatically select another available port.
 
-```powershell
-# inside a virtualenv (recommended) or system python
-pip install -r requirements.txt
-# If requirements.txt doesn't exist, install these:
-pip install xgboost pandas numpy scikit-learn joblib
-```
+### Production Build
 
-2. Prepare your CSV files in `data/`.
-   - The training script expects `data/KDDtrain.csv` and optionally `data/KDDtest.csv`.
-   - If your cleaned file is `KDDtrain_cleaned.csv`, copy it to `data/KDDtrain.csv`.
+Create a production build:
 
-3. Run the training script:
+npm run build
 
-```powershell
-python training.py
-```
+Preview the production build:
 
-4. After training, files saved:
-   - `public/models/xgboost_threat_model.pkl`
-   - `public/models/scaler.pkl`
-   - `public/models/label_encoders.pkl`
-   - `model_metadata.json` (script saves a copy in project root and prints it)
+npm run preview
 
-Note: `training.py` contains logic to detect quoted lines and header-like rows; if you see errors about 'col_0' the script will try to drop the header row.
+### Code Quality
 
-## 6) How to use the Threat Injection page (simple)
+Run ESLint:
 
-1. Open Threat Injection in the browser.
-2. To test a single packet, fill the form fields (source/destination IP, protocol, ports, packet size, flags) and click "Inject & Analyze".
-   - The UI will call a detection function that may use the trained model metadata and a local rule-based predictor.
-3. To analyze a KDD CSV dataset, use the file input under the form and upload the CSV.
-   - The UI will parse up to a safety cap of rows (configurable). It will try to detect the correct label column: if the last column is numeric (difficulty), it uses the second-last column as the attack label.
-   - The analysis will show counts of Critical/High/Medium/Normal and a sample table.
-4. You can export per-row analysis (CSV) from the UI.
+npm run lint
 
-## 7) Why sometimes the UI showed 'Normal' for everything
+The project currently passes ESLint with:
 
-The KDD CSV format usually has `...,label,difficulty`. Earlier the parser assumed the last column is the label. That caused the parser to read a numeric difficulty (like `21`) as a label and map it to Normal. I updated the parser to use the second-last column if the last column is numeric — that fixes the wrong 'Normal' results.
+0 errors
+0 warnings
 
-If you still see everything as Normal or NaN confidence, try these checks:
-- Reload the page (to ensure new frontend code is picked up).
-- Re-upload the CSV file.
-- Verify `public/models/model_metadata.json` exists — this tells the frontend the model is trained.
+### Machine Learning Model
 
-## 8) Common errors and simple fixes
+The application uses an XGBoost-based threat classification model trained for network intrusion detection.
 
-- "Expression expected" overlay in the browser
-  - This came from a TypeScript syntax issue in `src/services/packetCapture.ts`. I fixed duplicate declarations and stray braces. If you see it again, open the browser overlay and note the file/line to fix.
+Model artifacts included in the project:
 
-- Training script error: `ValueError: could not convert string to float: 'col_0'`
-  - Your CSV had a header row embedded in quoted content; I added logic to `training.py` to drop header-like first rows after splitting. If your CSV has different headers, open the file and remove any leading header row.
+public/models/
+├── xgboost_threat_model.pkl
+├── scaler.pkl
+├── label_encoders.pkl
+└── model_metadata.json
 
-- CSV parser shows NaN confidence for model predictions
-  - The UI tries to extract a few feature columns heuristically to call `xgboostModel.predictThreatLevel`. If your CSV layout is different, supply a sample row and I can adjust the parser to map exact columns.
+The application loads these artifacts and uses processed network features to generate threat predictions.
 
-## 9) Where to change behavior (if you want to customize)
+### Current Model Metrics
+Accuracy:  80.57%
+Precision: 96.85%
+Recall:    68.08%
+F1 Score:  79.96%
 
-- To change which features the model uses or how the training works: edit `training.py`.
-- To change mapping from KDD labels to attack types or severity rules: edit `src/components/ThreatInjection.tsx` (there are sets and regex patterns near the top of the file).
-- To change the simulated packet capture behavior: edit `src/services/packetCapture.ts`.
+Training metadata currently associated with the model:
 
-## 10) Next improvements (ideas you can ask me to add)
+Training Date:
+2025-10-14T12:27:08.562138
+### Dataset
 
-- Add a server-side scoring endpoint to run model predictions on large CSVs without client CPU limits.
-- Improve the feature extractor in the UI to use exact columns (no heuristics), so model predictions never fail.
-- Add unit tests for the CSV parser and for the model-loader interfaces.
-- Improve the model (hyperparameter tuning or class weighting) to increase recall.
+The project uses the NSL-KDD intrusion-detection dataset for network-security experimentation and model processing.
 
----
+The large CSV dataset files are intentionally excluded from the Git repository to keep the repository lightweight.
 
-If you want, I can now:
-- Walk you through a short demo (I’ll upload your `KDDtest.csv` and paste the analysis result), or
-- Add a server endpoint that runs per-row scoring using the saved `xgboost_threat_model.pkl` (recommended for big datasets), or
-- Tweak how severity is derived from model confidence.
+The .gitignore includes:
 
-Tell me which of these you want next and I’ll implement it step-by-step.
+data/*.csv
 
----
+If you need the dataset for model training or experimentation, obtain it separately and place the required files inside:
 
-Simple contact: open `src/components/ThreatInjection.tsx` and `training.py` if you want to change mappings or training details.
+data/
+## Security Considerations
 
-Good luck — you can run the steps above and tell me any error messages and I’ll fix them with exact edits.
+This project is intended primarily for educational, research, demonstration, and cybersecurity experimentation.
+
+It should not be considered a complete production SOC or intrusion-prevention system.
+
+Important considerations include:
+
+ML predictions can produce false positives and false negatives.
+Model performance depends on the training and evaluation data.
+Network traffic simulation does not represent every real-world environment.
+Authentication credentials must remain outside source control.
+Production deployments should use secure secret management.
+Additional validation and monitoring should be implemented before using similar systems in production.
+
+## Git and Sensitive Files
+
+The repository intentionally excludes sensitive and unnecessary files such as:
+
+.env
+.env.local
+.venv/
+data/*.csv
+
+The trained model artifacts required by the application are included under:
+
+public/models/
+
+## Future Improvements
+
+Potential future development areas include:
+
+Live packet capture using a dedicated network capture service
+More advanced intrusion-detection models
+Model retraining pipelines
+Explainable AI for threat predictions
+Additional cybersecurity datasets
+Role-based access control
+Advanced alerting
+Email and notification workflows
+SIEM integration
+Docker deployment
+Cloud deployment
+Model performance monitoring
+Threat-intelligence integration
+Automated security incident workflows
+
+## Disclaimer
+
+This project is developed for educational and research purposes.
+
+The threat-detection results are generated by a machine-learning model and should not be treated as definitive security judgments. Always validate security alerts using appropriate security tools, logs, network telemetry, and human analysis.
+
+## Author
+
+**Yashodha Kapali**
