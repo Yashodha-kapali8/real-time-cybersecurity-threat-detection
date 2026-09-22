@@ -90,15 +90,15 @@ public/models/
 ├── model_metadata.json
 ├── scaler.pkl
 └── xgboost_threat_model.pkl
-
----
+```
+----
 
 ### NSL-KDD Dataset Processing
 
 The project includes functionality for working with the NSL-KDD intrusion-detection dataset.
 
 The processing workflow is:
-
+```text
 CSV Dataset
     ↓
 Data Parsing
@@ -112,6 +112,7 @@ Model Input
 Threat Classification
     ↓
 Dashboard Visualization
+```
 
 Large raw dataset files are intentionally excluded from GitHub through .gitignore.
 
@@ -121,13 +122,13 @@ The packet analysis interface provides a way to inspect network packet informati
 
 The application can display information such as:
 
-Source IP
-Destination IP
-Protocol
-Ports
-Packet characteristics
-Threat classification
-Confidence information
+* Source IP
+* Destination IP
+* Protocol
+* Ports
+* Packet characteristics
+* Threat classification
+* Confidence information
 
 ### Security Dashboard
 
@@ -135,12 +136,12 @@ The dashboard provides an interactive view of security activity.
 
 It includes visualizations for:
 
-Network traffic
-Threat distribution
-Threat trends
-Model metrics
-Security events
-Monitoring statistics
+* Network traffic
+* Threat distribution
+* Threat trends
+* Model metrics
+* Security events
+* Monitoring statistics
 
 ### Logs Explorer
 
@@ -148,10 +149,10 @@ The Logs Explorer provides an interface for reviewing security-related events an
 
 It supports:
 
-Log browsing
-Threat details
-Event information
-Security event analysis
+* Log browsing
+* Threat details
+* Event information
+* Security event analysis
 
 ### Threat Injection
 
@@ -165,45 +166,41 @@ User authentication is implemented using Supabase.
 
 The application supports:
 
-User registration
-Email confirmation
-Login
-Session persistence
-Logout
-Protected application access
+* User registration
+* Email confirmation
+* Login
+* Session persistence
+* Logout
+* Protected application access
 
 Supabase credentials are loaded through environment variables and are not committed to the repository.
 
 ## Technology Stack
-
-Frontend
-React
-TypeScript
-Vite
-React Router
-Tailwind CSS
-shadcn/ui
-Radix UI
-Recharts
-
-### Machine Learning
-XGBoost
-NSL-KDD dataset
-Feature encoding
-Feature scaling
-Model serialization
-
-### Backend and Services
-Supabase
-Supabase Authentication
-Supabase Edge Functions
-
-### Development Tools
-Node.js
-npm
-ESLint
-Git
-GitHub
+#### Frontend
+* React
+* TypeScript
+* Vite
+* React Router
+* Tailwind CSS
+* shadcn/ui
+* Radix UI
+* Recharts
+#### Machine Learning
+* XGBoost
+* NSL-KDD dataset
+* Feature encoding
+* Feature scaling
+* Model serialization
+#### Backend and Services
+* Supabase
+* Supabase Authentication
+* Supabase Edge Functions
+#### Development Tools
+* Node.js
+* npm
+* ESLint
+* Git
+* GitHub
 
 ## Architecture
 
@@ -219,7 +216,7 @@ High-level application architecture:
              ▼                 ▼                 ▼
       ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
       │  Dashboard  │   │   Network   │   │    Logs     │
-      │             │   │  Monitoring │   │   Explorer   │
+      │             │   │  Monitoring │   │   Explorer  │
       └─────────────┘   └──────┬──────┘   └─────────────┘
                                │
                                ▼
@@ -245,6 +242,7 @@ High-level application architecture:
                        │ Authentication│
                        └───────────────┘
 ## Project Structure
+```text
 real-time-cybersecurity-threat-detection/
 │
 ├── public/
@@ -303,36 +301,39 @@ real-time-cybersecurity-threat-detection/
 ├── tailwind.config.ts
 ├── vite.config.ts
 └── README.md
-
+```
 ## Getting Started
-Prerequisites
+### Prerequisites
 
 Make sure you have the following installed:
 
-Node.js 18 or later
-npm
-Git
+* Node.js 18 or later
+* npm
+* Git
 
 Check your versions:
 
-node --version
-npm --version
-git --version
-
+* node --version
+* npm --version
+* git --version
 ### Installation
+1. Clone the repository:
 
-Clone the repository:
-
+```text
 git clone https://github.com/Yashodha-kapali8/real-time-cybersecurity-threat-detection.git
+```
 
-Navigate into the project:
+2. Navigate into the project:
 
+```text 
 cd real-time-cybersecurity-threat-detection
+```
 
-Install dependencies:
+3. Install dependencies:
 
+```text 
 npm install
-
+```
 ### Environment Variables
 
 Create a local environment file:
@@ -346,7 +347,7 @@ Example:
 VITE_SUPABASE_PROJECT_ID=your_project_id
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
-Important
+## Important
 
 Never commit .env to GitHub.
 
@@ -356,11 +357,15 @@ The project is configured to ignore environment files containing local credentia
 
 Start the development server:
 
+```text 
 npm run dev
+```
 
 Vite will display the local URL in the terminal, typically:
 
+```text 
 http://localhost:8080
+```
 
 If that port is already in use, Vite will automatically select another available port.
 
@@ -368,48 +373,62 @@ If that port is already in use, Vite will automatically select another available
 
 Create a production build:
 
+```text 
 npm run build
+```
 
 Preview the production build:
 
+```text 
 npm run preview
-
+```
 ### Code Quality
 
 Run ESLint:
 
+```text 
 npm run lint
+```
 
 The project currently passes ESLint with:
 
 0 errors
 0 warnings
-
 ### Machine Learning Model
 
 The application uses an XGBoost-based threat classification model trained for network intrusion detection.
 
-Model artifacts included in the project:
+## Model Artifacts
 
+The model artifacts included in the project are:
+```text
 public/models/
 ├── xgboost_threat_model.pkl
 ├── scaler.pkl
 ├── label_encoders.pkl
 └── model_metadata.json
+```
 
 The application loads these artifacts and uses processed network features to generate threat predictions.
 
 ### Current Model Metrics
-Accuracy:  80.57%
-Precision: 96.85%
-Recall:    68.08%
-F1 Score:  79.96%
+| Metric |	Result|
+|---|---:|
+|Accuracy |	80.57%|
+|Precision |	96.85%|
+|Recall |	68.08%|
+|F1 Score  | 79.96%|
 
-Training metadata currently associated with the model:
+### Training Metadata
 
-Training Date:
+The training metadata currently associated with the model is:
+
+### Training Date:
 2025-10-14T12:27:08.562138
-### Dataset
+
+Model performance can vary depending on the dataset, preprocessing pipeline, environment, and network traffic characteristics.
+
+## Dataset
 
 The project uses the NSL-KDD intrusion-detection dataset for network-security experimentation and model processing.
 
@@ -417,12 +436,14 @@ The large CSV dataset files are intentionally excluded from the Git repository t
 
 The .gitignore includes:
 
+```text 
 data/*.csv
+```
 
 If you need the dataset for model training or experimentation, obtain it separately and place the required files inside:
 
-data/
-## Security Considerations
+```text data/```
+### Security Considerations
 
 This project is intended primarily for educational, research, demonstration, and cybersecurity experimentation.
 
@@ -436,21 +457,23 @@ Network traffic simulation does not represent every real-world environment.
 Authentication credentials must remain outside source control.
 Production deployments should use secure secret management.
 Additional validation and monitoring should be implemented before using similar systems in production.
-
-## Git and Sensitive Files
+### Git and Sensitive Files
 
 The repository intentionally excludes sensitive and unnecessary files such as:
-
+```text
 .env
 .env.local
 .venv/
 data/*.csv
+```
 
 The trained model artifacts required by the application are included under:
 
-public/models/
+```text public/models/```
 
-## Future Improvements
+The repository uses .env.example to document the required environment variables without exposing local credentials.
+
+### Future Improvements
 
 Potential future development areas include:
 
@@ -468,13 +491,20 @@ Cloud deployment
 Model performance monitoring
 Threat-intelligence integration
 Automated security incident workflows
-
-## Disclaimer
+### Disclaimer
 
 This project is developed for educational and research purposes.
 
-The threat-detection results are generated by a machine-learning model and should not be treated as definitive security judgments. Always validate security alerts using appropriate security tools, logs, network telemetry, and human analysis.
+The threat-detection results are generated by a machine-learning model and should not be treated as definitive security judgments.
 
-## Author
+Always validate security alerts using appropriate security tools, logs, network telemetry, and human analysis.
+
+### Author
 
 **Yashodha Kapali**
+
+
+
+
+
+
